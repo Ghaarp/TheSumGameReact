@@ -12,7 +12,6 @@ class GameLogic {
     async createGame(userId) {
 
         let generatedSeq = this.generateUniqueRandomArray(this.min, this.max).join(this.delimiter);
-        console.log(generatedSeq);
         let result = 0;
 
         let playedSeq = this.hiddenGeneratedSeq(generatedSeq.split(this.delimiter)).join(this.delimiter);
@@ -61,9 +60,6 @@ class GameLogic {
             return prev += current == this.hiddenSymbol ? 0 : parseInt(current);
         }, 0)
 
-        console.log(playedSeq);
-        console.log(turnsLeft);
-        console.log(result);
         const newTurn = await Round.update(
             {
                 playedSeq,

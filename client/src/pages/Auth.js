@@ -32,8 +32,6 @@ const Auth = observer(() => {
             setPasswordError('At least 6 characters')
             return;
         }
-
-
         try{
             const res = isLogin ? await loginOnServer(login, password) : await registerOnServer(login, password);
             if (errorHandle(res, setErrorMessage, setShowError)) return;
@@ -42,7 +40,6 @@ const Auth = observer(() => {
             user.updateToken(token);
             navigate(MAINPAGE_ROUTE);
         }catch(e){
-
             console.log(e.response.data.message);
         }
     }
@@ -75,7 +72,7 @@ const Auth = observer(() => {
                                 setLogin(value);
                             }}>
                         </FormControl>
-                        <text className="mb-0" style={{color: 'red'}}>{loginError}</text>
+                        <h5 className="mb-0" style={{color: 'red'}}>{loginError}</h5>
                         <FormControl
                             placeholder="Password"
                             className="mt-3"
@@ -95,7 +92,7 @@ const Auth = observer(() => {
                                 setPassword(e.target.value);
                             }}>
                         </FormControl>
-                        <text className="mb-0" style={{color: 'red'}}>{passwordError}</text>
+                        <h5 className="mb-0" style={{color: 'red'}}>{passwordError}</h5>
                         <Row className = "d-flex justify-content-between mt-3">
                             <div className="d-flex justify-content-between">
                                 {isLogin ?
@@ -109,7 +106,6 @@ const Auth = observer(() => {
                             </div>
                         </Row>
                     </Form>
-
                 </Card>
             </Container>
         </div>

@@ -12,7 +12,7 @@ ReactDOM.render(
     <Context.Provider value={{
         user: new UserStore(),
     }}>
-        <App />
+        <App/>
     </Context.Provider>,
   document.getElementById('root')
 );

@@ -1,5 +1,6 @@
 const {Round} = require('../models/models');
 const GameLogic = require('../Game/logic');
+const ApiError = require("../Errors/ApiError");
 
 class GameController {
     async play(req, res, next) {
@@ -12,7 +13,7 @@ class GameController {
             gameId = await GameLogic.createGame(user.id);
             if(gameId == undefined)
             {
-                return res.json("Game not created");
+                return next(ApiError.badRequest("Game not created"));
             }
         }
         else
@@ -20,10 +21,9 @@ class GameController {
             gameId = await GameLogic.makeTurn(gameId, user.id, undefined);
             if(gameId == undefined)
             {
-                return res.json("Game not found");
+                return next(ApiError.badRequest("Game not found"));
             }
         }
-        console.log(gameId);
         return res.json(await GameLogic.formResult(gameId));
     }
 
@@ -34,7 +34,7 @@ class GameController {
         const gameRound = await GameLogic.makeTurn(gameId, user.id, turn);
         if(gameRound == undefined)
         {
-            return res.json("Game not found");
+            return next(ApiError.badRequest("Game not found"));
         }
         return res.json(await GameLogic.formResult(gameId));
     }
